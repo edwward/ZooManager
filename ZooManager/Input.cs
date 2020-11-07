@@ -48,28 +48,38 @@ namespace ZooManager
             }
             return false;
         }
-
-        public static string InsertSpecies()
+        private static string InsertAnyText(string message)
         {
-            string species = "";
-            while (string.IsNullOrWhiteSpace(species))
+            string text = "";
+            while (string.IsNullOrWhiteSpace(text))
             {
-                Console.Write("Please enter animal species: ");
-                species = Console.ReadLine();
+                Console.Write(message);
+                text = Console.ReadLine();
             }
-            return species;
+            return text;
         }
 
-        public static int InsertWeight(string species)
+        public static string InsertSpecies(string message)
+        {
+            string species = InsertAnyText(message);
+            return species;
+        }
+        private static int InsertAnyNumber(string message) 
         {
             string input = "";
             bool isNum = false;
-            int weight = 0;
+            int number = 0;
             while (string.IsNullOrWhiteSpace(input) && !isNum)
             {
-                Console.Write($"Please enter \"{species}\" weight: ");
-                isNum = int.TryParse(Console.ReadLine(), out weight);
+                Console.Write(message);
+                isNum = int.TryParse(Console.ReadLine(), out number);
             }
+            return number;
+        }
+        
+        public static int InsertWeight(string species, string message)
+        {
+            int weight = InsertAnyNumber(message);
             return weight;
         }
 

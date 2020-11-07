@@ -14,9 +14,8 @@ namespace ZooManager
         public Zoo()
         {
             zoo = new List<Animal>();
-            
         }
-        
+
 
         private Animal FindAnimalObject(string animal)
         {
@@ -43,13 +42,12 @@ namespace ZooManager
                 Console.WriteLine("Animal not found!");
                 Console.ResetColor();
             }
-
         }
 
         public void AddAnimalObject()
         {
-            a.Species = Input.InsertSpecies();
-            a.Weight = Input.InsertWeight(a.Species);
+            a.Species = Input.InsertSpecies("Please enter animal species: ");
+            a.Weight = Input.InsertWeight(a.Species, $"Please enter \"{a.Species}\" weight: ");
             zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
         }
 
@@ -62,7 +60,7 @@ namespace ZooManager
             return true;
         }
 
-        public void ShowAllAnimals() 
+        public void ShowAllAnimals()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Blue;
