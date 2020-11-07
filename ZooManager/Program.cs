@@ -12,9 +12,9 @@ namespace ZooManager
         {
             Output.ShowInitialInfo();
             bool isAppRunning = false;
-            
-            List<Animal> zoo = new List<Animal>();
 
+            Zoo zoo = new Zoo();
+           
             while (!isAppRunning) 
             {
                 int num = Input.GetUserChoice();
@@ -23,20 +23,19 @@ namespace ZooManager
                 {
                     while (!Input.GetInput())
                     {
-                        ListMethods listMethods = new ListMethods();
-                        listMethods.AddAnimalObject(zoo);
+                        zoo.AddAnimalObject();
                     }
-                    Output.ShowAllAnimals(zoo);
+                    zoo.ShowAllAnimals();
                 }
 
                 if (num == 2)
                 {
-                    if (ListMethods.IsListEmpty(zoo))
+                    if (zoo.IsListEmpty())
                     {
                         Console.Write("Type the animal species you want to delete: ");
                         string input = Console.ReadLine();
-                        ListMethods.RemoveAnimalObject(input, zoo);
-                        Output.ShowAllAnimals(zoo);
+                        zoo.RemoveAnimalObject(input);
+                        zoo.ShowAllAnimals();
                     }
                     else 
                     {
@@ -47,10 +46,10 @@ namespace ZooManager
 
                 if (num == 3)
                 {
-                    if (ListMethods.IsListEmpty(zoo))
+                    if (zoo.IsListEmpty())
                     {
-                        ListMethods.SortByName(zoo);
-                        Output.ShowAllAnimals(zoo);
+                        zoo.SortByName();
+                        zoo.ShowAllAnimals();
                     }
                     else 
                     {

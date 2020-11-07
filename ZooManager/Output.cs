@@ -20,17 +20,6 @@ namespace ZooManager
             
         }
 
-        public static void ShowAllAnimals(List<Animal> zoo) 
-        {
-            Console.WriteLine();
-            Console.WriteLine("Your zoo contains these animals: ");
-            foreach (Animal animal in zoo)
-            {
-               Console.WriteLine("{0}, {1} kg", animal.Species, animal.Weight);
-            }
-            Console.WriteLine();
-        }
-
         public static void ShowErrorMessage() 
         {
             Console.WriteLine("Your zoo is empty!");

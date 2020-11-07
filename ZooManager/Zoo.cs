@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZooManager
 {
-    class Zoo
+    public class Zoo
     {
         private Animal a = new Animal();
         public List<Animal> zoo { get; set; }
@@ -14,11 +14,13 @@ namespace ZooManager
         public Zoo()
         {
             zoo = new List<Animal>();
+            
         }
+        
 
-        private Animal FindAnimalObject(string animal, List<Animal> list)
+        private Animal FindAnimalObject(string animal)
         {
-            foreach (Animal item in list)
+            foreach (Animal item in zoo)
             {
                 if (item.Species.Contains(animal))
                     return item;
@@ -26,11 +28,11 @@ namespace ZooManager
             return null;
         }
 
-        public void RemoveAnimalObject(string animalToDelete, List<Animal> list)
+        public void RemoveAnimalObject(string animalToDelete)
         {
-            if (FindAnimalObject(animalToDelete, list) != null)
+            if (FindAnimalObject(animalToDelete) != null)
             {
-                list.RemoveAll(a => a.Species == animalToDelete);
+                zoo.RemoveAll(a => a.Species == animalToDelete);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Animal deleted!");
                 Console.ResetColor();
@@ -44,25 +46,37 @@ namespace ZooManager
 
         }
 
-        public void AddAnimalObject(List<Animal> list)
+        public void AddAnimalObject()
         {
             a.Species = Input.InsertSpecies();
             a.Weight = Input.InsertWeight(a.Species);
-            list.Add(new Animal { Species = a.Species, Weight = a.Weight });
+            zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
         }
 
-        public bool IsListEmpty(List<Animal> list)
+        public bool IsListEmpty()
         {
-            if (list.Count == 0)
+            if (zoo.Count == 0)
             {
                 return false;
             }
             return true;
         }
 
-        public void SortByName(List<Animal> list)
+        public void ShowAllAnimals() 
         {
-            list.Sort((x, y) => x.Species.CompareTo(y.Species));
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Your zoo contains these animals: ");
+            Console.ResetColor();
+            foreach (Animal a in zoo)
+            {
+                Console.WriteLine("{0}, {1} kg", a.Species, a.Weight);
+            }
+        }
+
+        public void SortByName()
+        {
+            zoo.Sort((x, y) => x.Species.CompareTo(y.Species));
         }
     }
 }
