@@ -18,24 +18,6 @@ namespace ZooManager
             zoo = new List<Animal>();
         }
 
-        //public void FromListToZoo(List<Animal> list)
-        //{
-        //    bool IsListEmpty = !list.Any();
-        //    if (IsListEmpty)
-        //    {
-        //        Console.WriteLine("list is empty");
-        //    }
-        //    else 
-        //    {
-        //        for (int i = 0; i < list.Count; i++)
-        //        {
-        //            a.Species = list[i].Species;
-        //            a.Weight = list[i].Weight;
-        //            zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
-        //        }
-        //    }
-        //}
-
         public void FromListToZoo(List<Animal> list)
         {
 
@@ -43,7 +25,8 @@ namespace ZooManager
             {
                 a.Species = list[i].Species;
                 a.Weight = list[i].Weight;
-                zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
+                a.Name = list[i].Name;
+                zoo.Add(new Animal { Species = a.Species, Weight = a.Weight, Name = a.Name });
             }
 
         }
@@ -64,13 +47,13 @@ namespace ZooManager
             {
                 zoo.RemoveAll(a => a.Species == animalToDelete);
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Animal deleted!");
+                Console.WriteLine($"{animalToDelete} deleted!");
                 Console.ResetColor();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Animal not found!");
+                Console.WriteLine($"{animalToDelete} not found!");
                 Console.ResetColor();
             }
         }
@@ -78,8 +61,9 @@ namespace ZooManager
         public void AddAnimalObject()
         {
             a.Species = Input.InsertSpecies("Please enter animal species: ");
-            a.Weight = Input.InsertWeight(a.Species, $"Please enter \"{a.Species}\" weight: ");
-            zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
+            a.Name = Input.InsertSpecies("Please enter animal name: ");
+            a.Weight = Input.InsertWeight(a.Species, $"Please enter \"{a.Name}\" weight: ");
+            zoo.Add(new Animal { Species = a.Species, Name = a.Name, Weight = a.Weight });
         }
 
         public bool IsListEmpty()
@@ -99,16 +83,21 @@ namespace ZooManager
             Console.ResetColor();
             foreach (Animal a in zoo)
             {
-                Console.WriteLine("{0}, {1} kg", a.Species, a.Weight);
+                Console.WriteLine($"{a.Species}, {a.Name}, váží {a.Weight} kg");
             }
         }
 
 
-        public void SortByName()
+        public void SortBySpecies()
         {
             zoo.Sort((x, y) => x.Species.CompareTo(y.Species));
         }
 
-        
+        public void SortByWeight()
+        {
+            zoo.Sort((x, y) => x.Weight.CompareTo(y.Weight));
+        }
+
+
     }
 }

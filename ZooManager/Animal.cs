@@ -11,16 +11,18 @@ namespace ZooManager
     {
         public string  Species { get; set; }
         public int  Weight { get; set; }
+        public string Name { get; set; }
 
         public Animal()
         {
 
         }
 
-        public Animal(string species, int weight)
+        public Animal(string species, int weight, string name)
         {
             Species = species;
             Weight = weight;
+            Name = name;
         }
 
     }

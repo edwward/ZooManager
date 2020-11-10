@@ -17,11 +17,7 @@ namespace ZooManager
 
             while (!isNum)
             {
-                Console.WriteLine();
-                Console.WriteLine("1. Insert animal into zoo");
-                Console.WriteLine("2. Delete animal");
-                Console.WriteLine("3. Sort animals alphabetically");
-                Console.WriteLine("4. Exit the app");
+                Output.ShowOptions();
                 isNum = int.TryParse(Console.ReadLine(), out num);
             }
             return num;
@@ -59,11 +55,30 @@ namespace ZooManager
             return text;
         }
 
+        private static string InsertAnyText()
+        {
+            string text = "";
+            while (string.IsNullOrWhiteSpace(text))
+            {
+                 text = Console.ReadLine();
+            }
+            return text;
+        }
+
         public static string InsertSpecies(string message)
         {
             string species = InsertAnyText(message);
             return species;
         }
+
+        public static string InsertSpecies()
+        {
+            string species = InsertAnyText();
+            return species;
+        }
+
+
+
         private static int InsertAnyNumber(string message) 
         {
             string input = "";

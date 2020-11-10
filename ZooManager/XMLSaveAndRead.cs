@@ -20,30 +20,37 @@ namespace ZooManager
             new XmlSerializer(typeof(Zoo)).Serialize(fs, list);
         }
 
-        public static List<Animal> LoadZooFromXML()             //FUNGUJE
+        public static List<Animal> LoadZooFromXML()             
         {
             try
             {
-                var doc = XDocument.Load("C:\\Users\\edwwa\\source\\repos\\ZooManager\\ZooManager\\bin\\Debug\\zoo.xml");
+                var doc = XDocument.Load("zoo.xml");
                 List<Animal> list = doc.Descendants("Animal").Select(d =>
                   new Animal
                   {
                       Species = d.Element("Species").Value,
+                      Name = d.Element("Name").Value,
                       Weight = int.Parse(d.Element("Weight").Value)
 
                   }).ToList();
 
                 return list;
             }
-            catch (System.Xml.XmlException e)
+            catch (System.Xml.XmlException)
             {
-                Console.WriteLine("file not found {0}", e);
+                //Console.WriteLine("file not found {0}", e);
                 return null;
             }
-            //finally 
-            //{
-            //    FileStream fs = new FileStream("zoo.xml", FileMode.Create);
-            //}
+            catch (System.IO.FileNotFoundException)
+            {
+                //Console.WriteLine("file not found {0}", e);
+                return null;
+            }
+            finally
+            {
+                FileStream fs = new FileStream("zoo.xml", FileMode.Create);
+                fs.Close();
+            }
         }
 
     }

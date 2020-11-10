@@ -20,6 +20,15 @@ namespace ZooManager
             
         }
 
+        public static void ShowOptions()
+        {
+            Console.WriteLine();
+            Console.WriteLine("1. Insert animal into zoo");
+            Console.WriteLine("2. Delete animal");
+            Console.WriteLine("3. Sort animals alphabetically");
+            Console.WriteLine("4. Exit the app");
+        }
+
         public static void ShowErrorMessage() 
         {
             Console.WriteLine("Your zoo is empty!");

@@ -17,72 +17,61 @@ namespace ZooManager
             Zoo zoo = new Zoo();
 
             List<Animal> list = XMLSaveAndRead.LoadZooFromXML();
-            if (list != null)
+            if (list != null && list.Count > 0)
             {
                 zoo.FromListToZoo(list);
+                zoo.ShowAllAnimals();
             }
 
-            //zoo.ShowAllAnimals();
-            //foreach (animal a in zoo)
-            //{
-            //    console.writeline("{0}, {1} kg", a.species, a.weight);
-            //}
-            //Zoo zoo = XMLSaveAndRead.LoadZooFromXML();
-
-            while (!isAppRunning) 
+            while (!isAppRunning)
             {
                 int num = Input.GetUserChoice();
-                
-                if (num == 1)
+                switch (num)
                 {
-                    while (!Input.GetInput())
-                    {
-                        zoo.AddAnimalObject();
-                    }
-                    zoo.ShowAllAnimals();
-                }
-
-                if (num == 2)
-                {
-                    if (zoo.IsListEmpty())
-                    {
-                        Console.Write("Type the animal species you want to delete: ");
-                        string input = Console.ReadLine();
-                        zoo.RemoveAnimalObject(input);
+                    case 1:
+                        while (!Input.GetInput())
+                        {
+                            zoo.AddAnimalObject();
+                        }
                         zoo.ShowAllAnimals();
-                    }
-                    else 
-                    {
-                        Output.ShowErrorMessage();
-                    }
-                    
-                }
+                        break;
 
-                if (num == 3)
-                {
-                    if (zoo.IsListEmpty())
-                    {
-                        zoo.SortByName();
-                        zoo.ShowAllAnimals();
-                    }
-                    else 
-                    {
-                        Output.ShowErrorMessage();
-                    }
-                    
-                }
+                    case 2:
+                        if (zoo.IsListEmpty())
+                        {
+                            Console.Write("Type the animal species you want to delete: ");
+                            string input = Console.ReadLine();
+                            zoo.RemoveAnimalObject(input);
+                            zoo.ShowAllAnimals();
+                        }
+                        else
+                        {
+                            Output.ShowErrorMessage();
+                        }
+                        break;
 
-                if (num == 4)
-                {
-                    XMLSaveAndRead.SaveZooToXML(zoo);
-                    Console.WriteLine("App is over. Press any key to exit.");
-                    Console.ReadKey();
-                    isAppRunning = true;
-                    return;
-                }
+                    case 3:
+                        if (zoo.IsListEmpty())
+                        {
+                            zoo.SortBySpecies();
+                            zoo.ShowAllAnimals();
+                        }
+                        else
+                        {
+                            Output.ShowErrorMessage();
+                        }
+                        break;
 
+                    case 4:
+                        XMLSaveAndRead.SaveZooToXML(zoo);
+                        Console.WriteLine("App is over. Press any key to exit.");
+                        Console.ReadKey();
+                        //isAppRunning = true;
+                        return;
+                }
+              
             }
-            
+
             Console.ReadKey();
         }
     }
