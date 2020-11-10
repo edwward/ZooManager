@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace ZooManager
 {
@@ -16,6 +18,35 @@ namespace ZooManager
             zoo = new List<Animal>();
         }
 
+        //public void FromListToZoo(List<Animal> list)
+        //{
+        //    bool IsListEmpty = !list.Any();
+        //    if (IsListEmpty)
+        //    {
+        //        Console.WriteLine("list is empty");
+        //    }
+        //    else 
+        //    {
+        //        for (int i = 0; i < list.Count; i++)
+        //        {
+        //            a.Species = list[i].Species;
+        //            a.Weight = list[i].Weight;
+        //            zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
+        //        }
+        //    }
+        //}
+
+        public void FromListToZoo(List<Animal> list)
+        {
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                a.Species = list[i].Species;
+                a.Weight = list[i].Weight;
+                zoo.Add(new Animal { Species = a.Species, Weight = a.Weight });
+            }
+
+        }
 
         private Animal FindAnimalObject(string animal)
         {
@@ -72,9 +103,12 @@ namespace ZooManager
             }
         }
 
+
         public void SortByName()
         {
             zoo.Sort((x, y) => x.Species.CompareTo(y.Species));
         }
+
+        
     }
 }
