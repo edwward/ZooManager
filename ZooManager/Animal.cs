@@ -9,6 +9,7 @@ namespace ZooManager
 {
     public class Animal
     {
+        public int Id { get; set; }
         public string  Species { get; set; }
         public int  Weight { get; set; }
         public string Name { get; set; }
@@ -18,8 +19,9 @@ namespace ZooManager
 
         }
 
-        public Animal(string species, int weight, string name)
+        public Animal(int id, string species, int weight, string name)
         {
+            Id = id;
             Species = species;
             Weight = weight;
             Name = name;

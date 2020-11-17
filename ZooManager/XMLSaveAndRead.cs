@@ -28,6 +28,7 @@ namespace ZooManager
                 List<Animal> list = doc.Descendants("Animal").Select(d =>
                   new Animal
                   {
+                      Id = int.Parse(d.Element("Id").Value),
                       Species = d.Element("Species").Value,
                       Name = d.Element("Name").Value,
                       Weight = int.Parse(d.Element("Weight").Value)

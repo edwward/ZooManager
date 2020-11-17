@@ -10,7 +10,7 @@ namespace ZooManager
 {
     public static class Input
     {
-        public static int GetUserChoice()
+        public static int GetChoiceNumber()
         {
             int num = 0;
             bool isNum = false;
@@ -23,11 +23,11 @@ namespace ZooManager
             return num;
         }
 
-        public static bool GetInput()
+        public static bool GetInput(string message)
         {
             while (true)
             {
-                Console.Write("Do you want to add animal? (y/n) ");
+                Console.Write(message);
                 string input = Console.ReadLine();
                 if (input == "y")
                 {
@@ -71,15 +71,7 @@ namespace ZooManager
             return species;
         }
 
-        public static string InsertSpecies()
-        {
-            string species = InsertAnyText();
-            return species;
-        }
-
-
-
-        private static int InsertAnyNumber(string message) 
+        public static int InsertAnyNumber(string message) 
         {
             string input = "";
             bool isNum = false;
@@ -91,14 +83,11 @@ namespace ZooManager
             }
             return number;
         }
-        
+                
         public static int InsertWeight(string species, string message)
         {
             int weight = InsertAnyNumber(message);
             return weight;
         }
-
-
-
     }
 }

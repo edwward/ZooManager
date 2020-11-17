@@ -25,23 +25,35 @@ namespace ZooManager
 
             while (!isAppRunning)
             {
-                int num = Input.GetUserChoice();
+                int num = Input.GetChoiceNumber();
                 switch (num)
                 {
                     case 1:
-                        while (!Input.GetInput())
+                        while (!Input.GetInput("Do you want to add animal? (y/n) "))
                         {
                             zoo.AddAnimalObject();
                         }
-                        zoo.ShowAllAnimals();
+                        if (zoo.IsListEmpty())
+                        {
+                            zoo.ShowAllAnimals();
+                        }
+                        else 
+                        {
+                            Output.ShowErrorMessage();
+                        }
                         break;
 
                     case 2:
+                        int input2 = Input.InsertAnyNumber("Type the animal Id you want to update: ");
+                        zoo.UpdateAnimalObject(input2);
+                        zoo.ShowAllAnimals();
+                        break;
+
+                    case 3:
                         if (zoo.IsListEmpty())
                         {
-                            Console.Write("Type the animal species you want to delete: ");
-                            string input = Console.ReadLine();
-                            zoo.RemoveAnimalObject(input);
+                            int input = Input.InsertAnyNumber("Type the animal Id you want to delete: ");
+                            zoo.RemoveAnimalObjectById(input);
                             zoo.ShowAllAnimals();
                         }
                         else
@@ -50,7 +62,11 @@ namespace ZooManager
                         }
                         break;
 
-                    case 3:
+                    case 4:
+                        zoo.RemoveAllAnimals();
+                        break;
+
+                    case 5:
                         if (zoo.IsListEmpty())
                         {
                             zoo.SortBySpecies();
@@ -62,16 +78,26 @@ namespace ZooManager
                         }
                         break;
 
-                    case 4:
+                    case 6:
+                        if (zoo.IsListEmpty())
+                        {
+                            zoo.SortById();
+                            zoo.ShowAllAnimals();
+                        }
+                        else
+                        {
+                            Output.ShowErrorMessage();
+                        }
+                        break;
+
+                     case 7:
+                        zoo.SortById();
                         XMLSaveAndRead.SaveZooToXML(zoo);
                         Console.WriteLine("App is over. Press any key to exit.");
                         Console.ReadKey();
-                        //isAppRunning = true;
                         return;
                 }
-              
             }
-
             Console.ReadKey();
         }
     }
