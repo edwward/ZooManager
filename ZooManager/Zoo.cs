@@ -11,13 +11,17 @@ namespace ZooManager
     public class Zoo
     {
         private Animal a = new Animal();
-        public List<Animal> zoo { get; set; }
+        public List<Animal> ZooList { get; set; }
 
         public int id = 1;
 
+        public Zoo(List<Animal> zoolist)
+        {
+            ZooList = zoolist;
+        }
+
         public Zoo()
         {
-            zoo = new List<Animal>();
         }
 
         public void FromListToZoo(List<Animal> list)
@@ -28,44 +32,17 @@ namespace ZooManager
                 a.Species = list[i].Species;
                 a.Weight = list[i].Weight;
                 a.Name = list[i].Name;
-                zoo.Add(new Animal { Id = a.Id, Species = a.Species, Weight = a.Weight, Name = a.Name });
+                ZooList.Add(new Animal { Id = a.Id, Species = a.Species, Weight = a.Weight, Name = a.Name });
                 a.Id++;
             }
             id = a.Id;
         }
 
-        //private Animal FindAnimalObjectBySpecies(string animal)
-        //{
-        //    foreach (Animal item in zoo)
-        //    {
-        //        if (item.Species.Contains(animal))
-        //            return item;
-        //    }
-        //    return null;
-        //}
-
-        //public void RemoveAnimalObjectBySpecies(string animalToDelete)
-        //{
-        //    if (FindAnimalObjectBySpecies(animalToDelete) != null)
-        //    {
-        //        zoo.RemoveAll(a => a.Species == animalToDelete);
-        //        Console.ForegroundColor = ConsoleColor.Red;
-        //        Console.WriteLine($"{animalToDelete} removed.");
-        //        Console.ResetColor();
-        //    }
-        //    else
-        //    {
-        //        Console.ForegroundColor = ConsoleColor.Red;
-        //        Console.WriteLine($"{animalToDelete} not found!");
-        //        Console.ResetColor();
-        //    }
-        //}
-
         public void RemoveAnimalObjectById(int idToDelete)
         {
             if (idToDelete != 0 && idToDelete < id)
             {
-                zoo.RemoveAll(a => a.Id == idToDelete);
+                ZooList.RemoveAll(a => a.Id == idToDelete);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Animal with Id {idToDelete} removed.");
                 Console.ResetColor();
@@ -80,7 +57,7 @@ namespace ZooManager
 
         public void RemoveAllAnimals()
         {
-            zoo.Clear();
+            ZooList.Clear();
             id = 1;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("All animals were removed. Your zoo is empty.");
@@ -93,7 +70,7 @@ namespace ZooManager
             a.Species = Input.InsertSpecies("Please enter animal species: ");
             a.Name = Input.InsertSpecies("Please enter animal name: ");
             a.Weight = Input.InsertWeight(a.Species, $"Please enter \"{a.Name}\" weight: ");
-            zoo.Add(new Animal { Id = a.Id, Species = a.Species, Name = a.Name, Weight = a.Weight });
+            ZooList.Add(new Animal { Id = a.Id, Species = a.Species, Name = a.Name, Weight = a.Weight });
             id++;
         }
 
@@ -101,9 +78,9 @@ namespace ZooManager
         {
             if (idToUpdate != 0 && idToUpdate < id)
             {
-                zoo.Find(a => a.Id == idToUpdate).Species = Input.InsertSpecies("Please enter updated animal species: ");
-                zoo.Find(a => a.Id == idToUpdate).Name = Input.InsertSpecies("Please enter updated animal name: ");
-                zoo.Find(a => a.Id == idToUpdate).Weight = Input.InsertWeight(a.Species, "Please enter updated animal weight: ");
+                ZooList.Find(a => a.Id == idToUpdate).Species = Input.InsertSpecies("Please enter updated animal species: ");
+                ZooList.Find(a => a.Id == idToUpdate).Name = Input.InsertSpecies("Please enter updated animal name: ");
+                ZooList.Find(a => a.Id == idToUpdate).Weight = Input.InsertWeight(a.Species, "Please enter updated animal weight: ");
             }
             else
             {
@@ -115,7 +92,7 @@ namespace ZooManager
 
         public bool IsListEmpty()
         {
-            if (zoo.Count == 0)
+            if (ZooList.Count == 0)
             {
                 return false;
             }
@@ -131,7 +108,7 @@ namespace ZooManager
             Console.WriteLine();
             Console.WriteLine("  Id | Species            | Name               |  Weight");
             Console.WriteLine(" --------------------------------------------------------");
-            foreach (Animal a in zoo)
+            foreach (Animal a in ZooList)
             {
                 Console.WriteLine("{0, 4} | {1, -18} | {2, -18} | {3, 4} kg", a.Id, a.Species, a.Name, a.Weight);
             }
@@ -139,17 +116,17 @@ namespace ZooManager
 
         public void SortBySpecies()
         {
-            zoo.Sort((x, y) => x.Species.CompareTo(y.Species));
+            ZooList.Sort((x, y) => x.Species.CompareTo(y.Species));
         }
 
         public void SortByWeight()
         {
-            zoo.Sort((x, y) => x.Weight.CompareTo(y.Weight));
+            ZooList.Sort((x, y) => x.Weight.CompareTo(y.Weight));
         }
 
         public void SortById()
         {
-            zoo.Sort((x, y) => x.Id.CompareTo(y.Id));
+            ZooList.Sort((x, y) => x.Id.CompareTo(y.Id));
         }
 
 

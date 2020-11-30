@@ -10,13 +10,15 @@ namespace ZooManager
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             Output.ShowInitialInfo();
             bool isAppRunning = false;
-            Zoo zoo = new Zoo();
+            List<Animal> list = new List<Animal>();
+            Zoo zoo = new Zoo(list);
 
-            List<Animal> list = XMLSaveAndRead.LoadZooFromXML();
+            list = XMLSaveAndRead.LoadZooFromXML();
             if (list != null && list.Count > 0)
             {
                 zoo.FromListToZoo(list);
@@ -44,9 +46,16 @@ namespace ZooManager
                         break;
 
                     case 2:
-                        int input2 = Input.InsertAnyNumber("Type the animal Id you want to update: ");
-                        zoo.UpdateAnimalObject(input2);
-                        zoo.ShowAllAnimals();
+                        if (zoo.IsListEmpty())
+                        {
+                            int input2 = Input.InsertAnyNumber("Type the animal Id you want to update: ");
+                            zoo.UpdateAnimalObject(input2);
+                            zoo.ShowAllAnimals();
+                        }
+                        else 
+                        {
+                            Output.ShowErrorMessage();
+                        }
                         break;
 
                     case 3:
