@@ -29,25 +29,28 @@ namespace ZooManager
             {
                 Console.Write(message);
                 string input = Console.ReadLine();
-                if (input == "y")
+                if (input.Equals("y", StringComparison.OrdinalIgnoreCase))
                 {
                     break;
                 }
-                else if (input == "n")
+                else if (input.Equals("n", StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
-                else 
+                else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Wrong Input!");
+                    Console.ResetColor();
                 }
             }
             return false;
         }
-        private static string InsertAnyText(string message)
+
+        public static string InsertAnyText(string message)
         {
             string text = "";
-            while (string.IsNullOrWhiteSpace(text))
+            while (string.IsNullOrWhiteSpace(text) || text.Any(char.IsDigit))
             {
                 Console.Write(message);
                 text = Console.ReadLine();
@@ -58,9 +61,9 @@ namespace ZooManager
         private static string InsertAnyText()
         {
             string text = "";
-            while (string.IsNullOrWhiteSpace(text))
+            while (string.IsNullOrWhiteSpace(text) || text.Any(char.IsDigit))
             {
-                 text = Console.ReadLine();
+                text = Console.ReadLine();
             }
             return text;
         }
@@ -71,7 +74,13 @@ namespace ZooManager
             return species;
         }
 
-        public static int InsertAnyNumber(string message) 
+        public static string InsertSpecies(string text, string message)
+        {
+            string species = InsertAnyText(message);
+            return species;
+        }
+
+        public static int InsertAnyNumber(string message)
         {
             string input = "";
             bool isNum = false;
@@ -83,10 +92,43 @@ namespace ZooManager
             }
             return number;
         }
-                
+
+        private static int InsertAnyNumber()
+        {
+            string input = "";
+            bool isNum = false;
+            int number = 0;
+            while (string.IsNullOrWhiteSpace(input) && !isNum)
+            {
+                isNum = int.TryParse(Console.ReadLine(), out number);
+            }
+            return number;
+        }
+
+        public static int InsertAnyPositiveNumber(string message)
+        {
+            int number = 0;
+            while (number <= 0)
+            {
+                number = InsertAnyNumber(message);
+            }
+            return number;
+        }
+
+        public static int InsertAnyPositiveNumberRange()
+        {
+            int number = 0;
+            while (number <= 0 && number < 4)
+            {
+                number = InsertAnyNumber();
+            }
+            return number;
+        }
+
+
         public static int InsertWeight(string species, string message)
         {
-            int weight = InsertAnyNumber(message);
+            int weight = InsertAnyPositiveNumber(message);
             return weight;
         }
     }

@@ -18,41 +18,39 @@ namespace ZooManager
         {
             FileStream fs = new FileStream("zoo.xml", FileMode.Create);     //save zoo to xml
             new XmlSerializer(typeof(Zoo)).Serialize(fs, list);
+            fs.Close();
         }
 
-        public static List<Animal> LoadZooFromXML()             
+        public static List<Animal> LoadZooFromXML()
         {
-            try
             {
-                var doc = XDocument.Load("zoo.xml");
-                List<Animal> list = doc.Descendants("Animal").Select(d =>
-                  new Animal
-                  {
-                      Id = int.Parse(d.Element("Id").Value),
-                      Species = d.Element("Species").Value,
-                      Name = d.Element("Name").Value,
-                      Weight = int.Parse(d.Element("Weight").Value)
+                try
+                {
+                    var doc = XDocument.Load("zoo.xml");
+                    List<Animal> loadList = doc.Descendants("Animal").Select(d =>
+                      new Animal
+                      {
+                          Id = int.Parse(d.Element("Id").Value),
+                          Species = d.Element("Species").Value,
+                          Name = d.Element("Name").Value,
+                          Weight = int.Parse(d.Element("Weight").Value),
 
-                  }).ToList();
+                      }).ToList();
 
-                return list;
+                    return loadList;
+                }
+                catch (System.Xml.XmlException e)
+                {
+                    //Console.WriteLine("file not found {0}", e);
+                    return null;
+                }
+                catch (System.IO.FileNotFoundException e)
+                {
+                    //Console.WriteLine("file not found {0}", e);
+                    return null;
+                }
             }
-            catch (System.Xml.XmlException)
-            {
-                //Console.WriteLine("file not found {0}", e);
-                return null;
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                //Console.WriteLine("file not found {0}", e);
-                return null;
-            }
-            finally
-            {
-                FileStream fs = new FileStream("zoo.xml", FileMode.Create);
-                fs.Close();
-            }
-         }
-
+        }
     }
 }
+
