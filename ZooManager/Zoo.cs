@@ -12,37 +12,22 @@ namespace ZooManager
     {
         Animal a = new Animal();
         public List<Animal> ZooList { get; set; }
-        int id = 1;
-        //bool isDeleted = false;
+        int id;
 
-        //public Zoo(List<Animal> zoolist)
-        //{
-        //    ZooList = zoolist;
-        //}
-
-        public Zoo()        //TODO loadovat list z xml?
+        public Zoo()        
         {
-            ZooList = new List<Animal>();
+            
             ZooList = XMLSaveAndRead.LoadZooFromXML();
-            if (ZooList.Count > 0)
+            if (ZooList != null && ZooList.Count > 0)
             {
                 id = ZooList[ZooList.Count - 1].Id + 1;
             }
-
-        }
-
-        public void FromListToZoo(List<Animal> list)
-        {
-            for (int i = 0; i < list.Count; i++)
+            else 
             {
-                a.Id = list[i].Id;
-                a.Species = list[i].Species;
-                a.Weight = list[i].Weight;
-                a.Name = list[i].Name;
-                ZooList.Add(new Animal { Id = a.Id, Species = a.Species, Weight = a.Weight, Name = a.Name });
-                a.Id++;
+                ZooList = new List<Animal>();
+                id = 1;
             }
-            id = a.Id;
+
         }
 
         public void FindAnimalObject()
@@ -74,7 +59,7 @@ namespace ZooManager
             }
         }
 
-        public void RemoveAnimalObjectById() //funguje jen tehdy pridam-li po spusteni zvire, tj. kdyz se id vzpamatuje
+        public void RemoveAnimalObjectById() 
         {
             if (IsListEmpty())
             {
@@ -82,11 +67,9 @@ namespace ZooManager
                 if (idToDelete != 0 && idToDelete < id && ZooList.Any(a => a.Id == idToDelete))
                 {
                     ZooList.RemoveAll(a => a.Id == idToDelete);
-                    //isDeleted = true;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"Animal with Id {idToDelete} removed.");
                     Console.ResetColor();
-                    //a.Id = 0;
                     if (IsListEmpty())
                     {
                         ShowAllAnimals();
@@ -150,7 +133,7 @@ namespace ZooManager
 
         }
 
-        public void UpdateAnimalObject()  //funguje jen tehdy pridam-li po spusteni zvire, tj. kdyz se id vzpamatuje
+        public void UpdateAnimalObject()  
         {
             if (IsListEmpty())
             {
@@ -204,8 +187,9 @@ namespace ZooManager
 
         public void ShowAllAnimals()
         {
-            if (ZooList != null && ZooList.Count > 0)
+            if (IsListEmpty())
             {
+                Console.WriteLine();
                 Output.FormatTextBlue("   Your zoo contains these animals: ");
                 Console.ResetColor();
                 Output.FormatTableHeader();
@@ -213,6 +197,7 @@ namespace ZooManager
                 {
                     Console.WriteLine("{0, 4} | {1, -18} | {2, -18} | {3, 4} kg", a.Id, a.Species, a.Name, a.Weight);
                 }
+                Console.WriteLine();
             }
         }
 

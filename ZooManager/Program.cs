@@ -25,6 +25,7 @@ namespace ZooManager
                 {
                     case 1:
                         zoo.AddAnimalObject();
+                        XMLSaveAndRead.SaveZooToXML(zoo);
                         break;
 
                     case 2:

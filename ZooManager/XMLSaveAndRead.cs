@@ -16,9 +16,16 @@ namespace ZooManager
     {
         public static void SaveZooToXML(Zoo list)
         {
-            FileStream fs = new FileStream("zoo.xml", FileMode.Create);     //save zoo to xml
-            new XmlSerializer(typeof(Zoo)).Serialize(fs, list);
-            fs.Close();
+            try
+            {
+                FileStream fs = new FileStream("zoo.xml", FileMode.Create, FileAccess.ReadWrite);     //save zoo to xml
+                new XmlSerializer(typeof(Zoo)).Serialize(fs, list);
+                fs.Close();
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                Console.WriteLine("file not found {0}", e);
+            }
         }
 
         public static List<Animal> LoadZooFromXML()

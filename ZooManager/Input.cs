@@ -18,6 +18,8 @@ namespace ZooManager
             while (!isNum)
             {
                 Output.ShowOptions();
+                Console.WriteLine();
+                Output.DisplayChoice();
                 isNum = int.TryParse(Console.ReadLine(), out num);
             }
             return num;
@@ -124,7 +126,6 @@ namespace ZooManager
             }
             return number;
         }
-
 
         public static int InsertWeight(string species, string message)
         {

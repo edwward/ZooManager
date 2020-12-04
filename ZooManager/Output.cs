@@ -10,7 +10,7 @@ namespace ZooManager
     {
         public static void ShowInitialInfo()
         {
-            Console.WindowHeight = 35;
+            Console.WindowHeight = 40;
             Console.WriteLine();
             string title = @"
   _______   ___  _ __ ___   __ _ _ __   __ _  __ _  ___ _ __  
@@ -20,13 +20,13 @@ namespace ZooManager
                                               __/ |           
                                              |___/            ";
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("   Welcome to ZOOMANAGER App.");
+            Console.WriteLine("   WELCOME TO");
             Console.ResetColor();
             Console.WriteLine(title);
             Console.ResetColor();
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Please choose (numbers 1 - 9) from options below.");
+            Console.WriteLine("   Please choose (numbers 1 - 9) from options below.");
             Console.ResetColor();
         }
 
@@ -41,11 +41,9 @@ namespace ZooManager
             Console.WriteLine("6. Sort animals by Species");
             Console.WriteLine("7. Sort animals by Id");
             Console.WriteLine("8. Sort animals by Weight");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("-----------------------------");
-            Console.ResetColor();
             Console.WriteLine("9. Save zoo and exit the app");
-            
+
         }
 
         public static void UpdateAnimalOptions()
@@ -64,6 +62,11 @@ namespace ZooManager
             Console.ResetColor();
         }
 
+        public static void DisplayChoice()
+        {
+            Console.Write("Tell me your choice: ");
+        }
+
         public static void FormatTableHeader()
         {
             Console.WriteLine();
@@ -77,7 +80,5 @@ namespace ZooManager
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(text);
         }
-
-
     }
 }
