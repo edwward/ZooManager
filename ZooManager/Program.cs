@@ -64,10 +64,11 @@ namespace ZooManager
                         XMLSaveAndRead.SaveZooToXML(zoo);
                         Output.FormatTextBlue("App is over. Press any key to exit.");
                         Console.ReadKey();
-                        return;
+                        //return;
+                        isAppRunning = true;
+                        break;
                 }
             }
-            //Console.ReadKey();
-        }
+            }
     }
 }
